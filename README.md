@@ -1,5 +1,6 @@
 # openclaw-md-table-formatter
 
+[![skills.sh](https://skills-badge.vercel.app/badge/JungHoonGhae/openclaw-md-table-formatter?style=flat-square&label=installs)](https://skills.sh/JungHoonGhae/openclaw-md-table-formatter)
 [![npm version](https://img.shields.io/npm/v/openclaw-md-table-formatter.svg)](https://www.npmjs.com/package/openclaw-md-table-formatter)
 [![npm downloads](https://img.shields.io/npm/dw/openclaw-md-table-formatter.svg)](https://www.npmjs.com/package/openclaw-md-table-formatter)
 [![GitHub stars](https://img.shields.io/github/stars/JungHoonGhae/openclaw-md-table-formatter)](https://github.com/JungHoonGhae/openclaw-md-table-formatter/stargazers)
