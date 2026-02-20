@@ -1,0 +1,117 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version bump type (patch, minor, major) or specific version'
+        required: true
+        default: 'patch'
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm install -g bun && bun install
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          npm version ${{ github.event.inputs.version }} -m "chore: release v%s"
+          git push origin master --tags
+
+      - name: Check if version already published
+        id: check-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          PACKAGE=$(node -p "require('./package.json').name")
+          if npm view "$PACKAGE@$VERSION" version 2>/dev/null; then
+            echo "already_published=true" >> $GITHUB_OUTPUT
+          else
+            echo "already_published=false" >> $GITHUB_OUTPUT
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Publish to npm
+        if: steps.check-version.outputs.already_published != 'true'
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Generate Changelog
+        if: steps.check-version.outputs.already_published != 'true'
+        run: |
+          VERSION=${{ steps.check-version.outputs.version }}
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
+
+          echo "## [$VERSION] - $(date +%Y-%m-%d)" > RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+
+          if [ -n "$PREV_TAG" ]; then
+            echo "### Changes" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            git log $PREV_TAG..HEAD --oneline --no-merges | sed 's/^/- /' >> RELEASE_NOTES.md
+          else
+            echo "### Initial Release" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            echo "- Initial release of openclaw-md-table-formatter" >> RELEASE_NOTES.md
+          fi
+
+          cat RELEASE_NOTES.md
+
+      - name: Create GitHub Release
+        if: steps.check-version.outputs.already_published != 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.check-version.outputs.version }}
+          name: Release v${{ steps.check-version.outputs.version }}
+          body_path: RELEASE_NOTES.md
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update CHANGELOG.md
+        if: steps.check-version.outputs.already_published != 'true'
+        run: |
+          if [ -f CHANGELOG.md ]; then
+            # Prepend new release notes (skip the first line which is the version header)
+            head -n 1 RELEASE_NOTES.md > NEW_CHANGELOG.md
+            tail -n +2 RELEASE_NOTES.md >> NEW_CHANGELOG.md
+            echo "" >> NEW_CHANGELOG.md
+            cat CHANGELOG.md >> NEW_CHANGELOG.md
+            mv NEW_CHANGELOG.md CHANGELOG.md
+          else
+            mv RELEASE_NOTES.md CHANGELOG.md
+          fi
+
+          git add CHANGELOG.md
+          git commit -m "docs: update CHANGELOG.md for v${{ steps.check-version.outputs.version }}" || true
+          git push origin master || true
