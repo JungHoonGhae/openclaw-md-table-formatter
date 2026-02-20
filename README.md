@@ -1,7 +1,7 @@
 # openclaw-md-table-formatter
 
-[![npm version](https://img.shields.io/npm/v/@junghoonkye/openclaw-md-table-formatter.svg)](https://www.npmjs.com/package/@junghoonkye/openclaw-md-table-formatter)
-[![npm downloads](https://img.shields.io/npm/dw/@junghoonkye/openclaw-md-table-formatter.svg)](https://www.npmjs.com/package/@junghoonkye/openclaw-md-table-formatter)
+[![npm version](https://img.shields.io/npm/v/openclaw-md-table-formatter.svg)](https://www.npmjs.com/package/openclaw-md-table-formatter)
+[![npm downloads](https://img.shields.io/npm/dw/openclaw-md-table-formatter.svg)](https://www.npmjs.com/package/openclaw-md-table-formatter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/JungHoonGhae/openclaw-md-table-formatter/blob/main/LICENSE)
 
 | [<img alt="GitHub Follow" src="https://img.shields.io/github/followers/JungHoonGhae?style=flat-square&logo=github&labelColor=black&color=24292f" width="156px" />](https://github.com/JungHoonGhae) | Follow [@JungHoonGhae](https://github.com/JungHoonGhae) on GitHub for more projects. |
@@ -66,7 +66,7 @@ This hook automatically formats markdown tables in agent tool results:
 ### From npm
 
 ```bash
-openclaw hooks install @junghoonkye/openclaw-md-table-formatter
+openclaw hooks install openclaw-md-table-formatter
 ```
 
 ### From local directory
@@ -123,7 +123,7 @@ This hook intercepts `tool_result_persist` events, which fire when tool results 
 
 | Problem | Fix |
 |---------|-----|
-| Hook not found | Run `openclaw hooks install @junghoonkye/openclaw-md-table-formatter` |
+| Hook not found | Run `openclaw hooks install openclaw-md-table-formatter` |
 | Tables not formatting | Run `openclaw hooks enable md-table-formatter` then restart gateway |
 | Invalid table comment | Ensure table has separator row (`\|---\|`) and same column count |
 
@@ -150,7 +150,7 @@ bun run build
 
 - **OpenClaw**: [openclaw.ai](https://openclaw.ai) - The AI agent gateway
 - **GitHub**: [github.com/JungHoonGhae/openclaw-md-table-formatter](https://github.com/JungHoonGhae/openclaw-md-table-formatter)
-- **npm Package**: [npmjs.com/package/@junghoonkye/openclaw-md-table-formatter](https://www.npmjs.com/package/@junghoonkye/openclaw-md-table-formatter)
+- **npm Package**: [npmjs.com/package/openclaw-md-table-formatter](https://www.npmjs.com/package/openclaw-md-table-formatter)
 
 ## License
 

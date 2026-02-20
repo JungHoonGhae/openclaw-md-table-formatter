@@ -1,5 +1,5 @@
 {
-  "name": "@junghoonkye/openclaw-md-table-formatter",
+  "name": "openclaw-md-table-formatter",
   "version": "0.1.0",
   "description": "Markdown table formatter hook for OpenClaw",
   "type": "module",
