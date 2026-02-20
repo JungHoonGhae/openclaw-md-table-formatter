@@ -15,11 +15,11 @@
     "formatter",
     "hook"
   ],
-  "author": "junghoonkye",
+  "author": "JungHoonGhae",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/junghoonkye/openclaw-md-table-formatter.git"
+    "url": "https://github.com/JungHoonGhae/openclaw-md-table-formatter.git"
   },
   "openclaw": {
     "hooks": ["."]

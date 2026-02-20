@@ -1,7 +1,7 @@
 ---
 name: md-table-formatter
 description: "Formats markdown tables in agent tool results for better readability"
-homepage: https://github.com/junghoonkye/openclaw-md-table-formatter
+homepage: https://github.com/JungHoonGhae/openclaw-md-table-formatter
 metadata:
   openclaw:
     emoji: "📊"
