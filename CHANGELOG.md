@@ -1,3 +1,9 @@
+## [0.1.0] - 2026-02-20
+
+### Initial Release
+
+- Initial release of openclaw-md-table-formatter
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
