@@ -1,0 +1,27 @@
+{
+  "name": "@junghoonkye/openclaw-md-table-formatter",
+  "version": "0.1.0",
+  "description": "Markdown table formatter hook for OpenClaw",
+  "type": "module",
+  "main": "handler.ts",
+  "files": [
+    "HOOK.md",
+    "handler.ts"
+  ],
+  "keywords": [
+    "openclaw",
+    "markdown",
+    "table",
+    "formatter",
+    "hook"
+  ],
+  "author": "junghoonkye",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/junghoonkye/openclaw-md-table-formatter.git"
+  },
+  "openclaw": {
+    "hooks": ["."]
+  }
+}
